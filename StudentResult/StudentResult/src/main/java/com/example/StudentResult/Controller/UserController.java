@@ -34,21 +34,43 @@ public class UserController {
     @GetMapping("/user")
     public Optional<User> getMethodName() {
         Optional<User> user = userService.getAll();
+        if(user.isEmpty()){
+            return null;
+        }
         return user;
     }
 
     // get the user data 
     @GetMapping("user/{id}")
-    public User getUser(@PathVariable Integer id) {
-        Optional<User> user = userService.getUser(id);
-
-        if(user.isPresent()){
-            return (User)user.get();
-        }
-        return null;
+public ResponseEntity<User> getUser(@PathVariable Integer id) {
+    Optional<User> user = userService.getUser(id);
+    if (user.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    } else {
+        return ResponseEntity.ok(user.get());
     }
-    
+}
 
+ // Add a new user
+ @PostMapping("/user")
+ public ResponseEntity<User> addUser(@RequestBody User user) {
+     User newUser = userService.addUser(user);
+     return ResponseEntity.ok(newUser);
+ }
+ 
+ // Update an existing user
+ @PutMapping("/user/{id}")
+ public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
+     Optional<User> existingUser = userService.getUser(id);
+     if (existingUser.isEmpty()) {
+         return ResponseEntity.notFound().build();
+     } else {
+         user.setId(id);
+         User updatedUser = userService.updateUser(user);
+         return ResponseEntity.ok(updatedUser);
+     }
+ }
+    
     // Delete the user id and details 
     @DeleteMapping("user/{id}")
     public Optional<User> putupdate(@PathVariable Integer id) {
@@ -56,8 +78,6 @@ public class UserController {
         return user;
         
     }
-    
-
     
 }
     

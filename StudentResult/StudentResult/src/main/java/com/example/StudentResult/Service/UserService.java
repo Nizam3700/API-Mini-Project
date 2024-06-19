@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.context.config.ConfigData.Option;
 import org.springframework.stereotype.Service;
 
 import com.example.StudentResult.Model.User;
@@ -64,6 +65,32 @@ public class UserService {
             System.out.println("User details not found");
         }
         return optional;
+    }
+
+    //add new data
+    public User addUser(User user) {
+        userlist.add(user);
+        return user; 
+    }
+
+    // update the existing data 
+    public User updateUser(User user) {
+        Optional<User> optional = userlist.stream()
+                                .filter(userlist -> user.equals(userlist.getId())).
+                                findFirst();
+
+        if(optional.isPresent()){
+            User existingUser = optional.get();
+            existingUser.setId(user.getId());
+            existingUser.setName(user.getName());
+            existingUser.setFather_name(user.getFather_name());
+            existingUser.setAge(user.getAge());
+            existingUser.setSession(user.getSession());
+            return existingUser;
+        }
+        else{
+            return null;
+        }
     }
 
 }
