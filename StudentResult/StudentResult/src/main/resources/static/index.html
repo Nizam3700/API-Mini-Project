@@ -5,7 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="shortcut icon" href="https://png.pngtree.com/png-vector/20190425/ourmid/pngtree-vector-male-student-icon-png-image_992053.jpg" type="image/x-icon">
     <style>
-        .body{
+       .body{
             justify-content: center;
             text-align: center;
             align-items: center;
@@ -31,11 +31,9 @@
             width: 68px;
             border-radius: 8px;
             font-size: large;
+            cursor: pointer;
         }
-        button:hover{
-            background-color: greenyellow;
-        }
-        
+
         #user-data{
             justify-content: center;
             text-align: start;
@@ -45,7 +43,7 @@
             position: fixed;
             left: 35%;
         }
-        .not-found {
+       .not-found {
             color: red;
             font-weight: bold;
             margin-top: 20px;
@@ -53,15 +51,15 @@
     </style>
 </head>
 <body>
-    <div class="body">
+<div class="body">
 
-        <h1>Student Details</h1>
-        <input type="text" id="search-bar" placeholder="Search by ID">
-        <button id="search-btn">Search</button>
-    </div>
-    <div id="user-data"></div>
+    <h1>Student Details</h1>
+    <input type="text" id="search-bar" placeholder="Search by ID">
+    <button id="search-btn">Search</button>
+</div>
+<div id="user-data"></div>
 
-    <script>
+<script>
         $(document).ready(function() {
             // Add event listener to the search button
             $("#search-btn").click(function() {
@@ -81,7 +79,7 @@
         function searchUser(searchId) {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/user/" + searchId, // replace with your Java backend API URL
+                url: "/user/" + searchId, // assuming your Java backend API is running on the same domain
                 dataType: "json",
                 success: function(data) {
                     console.log(data);

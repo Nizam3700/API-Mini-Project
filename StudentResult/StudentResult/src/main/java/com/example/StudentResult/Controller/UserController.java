@@ -5,14 +5,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.StudentResult.Model.User;
 import com.example.StudentResult.Service.UserService;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,8 +31,8 @@ public class UserController {
 
     // get All user data 
     @GetMapping("/user")
-    public Optional<User> getMethodName() {
-        Optional<User> user = userService.getAll();
+    public List<User> getMethodName() {
+        List<User> user = userService.getAll();
         if(user.isEmpty()){
             return null;
         }
@@ -73,9 +72,9 @@ public ResponseEntity<User> getUser(@PathVariable Integer id) {
     
     // Delete the user id and details 
     @DeleteMapping("user/{id}")
-    public Optional<User> putupdate(@PathVariable Integer id) {
-        Optional<User> user = userService.removeUser(id);
-        return user;
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        userService.removeUser(id);
+        return ResponseEntity.noContent().build();
         
     }
     
