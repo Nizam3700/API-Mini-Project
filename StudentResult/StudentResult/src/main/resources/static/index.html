@@ -48,6 +48,9 @@
             font-weight: bold;
             margin-top: 20px;
         }
+        .name-style {
+            color: yellowgreen;
+        }
     </style>
 </head>
 <body>
@@ -87,10 +90,13 @@
                     $("#user-data").html("");
                     if (data) {
                         $("#user-data").append("<h3>" +"ID: " + data.id + "</h3>");
-                        $("#user-data").append("<h2>" +"Name: " + data.name + "</h2>");
-                        $("#user-data").append("<h3>" +"Father Name: " + data.father_name + "</h3>");
-                        $("#user-data").append("<h3>" +"Age: " + data.age + "</h3>");
-                        $("#user-data").append("<h3>" +"Class: " + data.session + "</h3>");
+                        $("#user-data").append("<h2 class='name-style'>" +"Name: " + data.name + "</h2>");
+                        $("#user-data").append("<h3 style='color: blue'>" +"Father Name: " + data.father_name + "</h3>");
+                        $("#user-data").append("<h3 style='color: brown'>" +"Age: " + data.age + "</h3>");
+                        $("#user-data").append("<h3 style='color: orange'>" +"Group: " + data.course + "</h3>");
+                        $("#user-data").append("<h3 style='color: green'>" +"Department: " + data.dept + "</h3>");
+                        $("#user-data").append("<h3 style='color: red'>" +"Year: " + data.year + "</h3>");
+
                     } else{
                         $("#user-data").append("<h3 class='not-found'>" + "User not found" + "</h3>");
                         alert("User Not found");
@@ -106,6 +112,7 @@
                 }
             });
         }
+
     </script>
 </body>
 </html>

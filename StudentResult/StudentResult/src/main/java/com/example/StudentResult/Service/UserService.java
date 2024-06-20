@@ -43,11 +43,18 @@ public class UserService {
             existingUser.setName(user.getName());
             existingUser.setFather_name(user.getFather_name());
             existingUser.setAge(user.getAge());
-            existingUser.setSession(user.getSession());
+            existingUser.setCourse(user.getCourse());
+            existingUser.setDept(user.getDept());
+            existingUser.setYear(user.getYear());
             return repo.save(existingUser);
         }
         else{
             return null;
         }
     }
+
+    public List<User> getUsersByYear(Integer year) {
+        return repo.findByYear(year);
+    }
+
 }

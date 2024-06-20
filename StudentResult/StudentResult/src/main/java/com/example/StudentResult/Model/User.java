@@ -19,5 +19,8 @@ public class User {
     private String name;
     private String father_name;
     private int age;
-    private int session;
+    private String dept;
+    private String course;
+
+    private int year;
 }
