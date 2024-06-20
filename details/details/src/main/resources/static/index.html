@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="shortcut icon" href="https://png.pngtree.com/png-vector/20190425/ourmid/pngtree-vector-male-student-icon-png-image_992053.jpg" type="image/x-icon">
+    <style>
+        .body{
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+        }
+        /* Add some basic styling to the search bar and results */
+        #search-bar {
+            width: 50%;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #user-data {
+            margin-top: 20px;
+        }
+        #user-data p {
+            margin-bottom: 10px;
+        }
+        #search-btn{
+            border: 2px solid black;
+            background-color: #8f8fda;
+            height: 41px;
+            width: 68px;
+            border-radius: 8px;
+            font-size: large;
+            cursor: pointer;
+        }
+        
+        #user-data{
+            justify-content: center;
+            text-align: start;
+            text-align: justify;
+            height: 50%;
+            width: 30%;
+            position: fixed;
+            left: 35%;
+        }
+        .not-found {
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+
+        <h1>Student Details</h1>
+        <input type="text" id="search-bar" placeholder="Search by ID">
+        <button id="search-btn">Search</button>
+    </div>
+    <div id="user-data"></div>
+
+    <script>
+        $(document).ready(function() {
+            // Add event listener to the search button
+            $("#search-btn").click(function() {
+                var searchId = $("#search-bar").val();
+                searchUser(searchId);
+            });
+
+            // Add event listener to the search bar (optional)
+            $("#search-bar").keypress(function(event) {
+                if (event.which === 13) {
+                    var searchId = $("#search-bar").val();
+                    searchUser(searchId);
+                }
+            });
+        });
+
+        function searchUser(searchId) {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/user/" + searchId, // replace with your Java backend API URL
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    // display data in HTML
+                    $("#user-data").html("");
+                    if (data) {
+                        $("#user-data").append("<h3>" +"ID: " + data.id + "</h3>");
+                        $("#user-data").append("<h2>" +"Name: " + data.name + "</h2>");
+                        $("#user-data").append("<h3>" +"Father Name: " + data.father_name + "</h3>");
+                        $("#user-data").append("<h3>" +"Age: " + data.age + "</h3>");
+                        $("#user-data").append("<h3>" +"Class: " + data.session + "</h3>");
+                    } else{
+                        $("#user-data").append("<h3 class='not-found'>" + "User not found" + "</h3>");
+                        alert("User Not found");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.status === 404) {
+                        $("#user-data").append("<h3 class='not-found'>" + "User not found" + "</h3>");
+                        alert("User Not found");
+                    } else {
+                        console.log("Error: " + error);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
